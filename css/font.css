@@ -1,0 +1,15 @@
+@font-face{
+    font-family: 'SourceCodePro';
+    font-display: swap;
+    src: url('../font/SourceCodePro.ttf') format("truetype");
+}
+@font-face{
+    font-family: 'huawenxingkai';
+    font-display: swap;
+    src: url('../font/kaiti.ttf') format("truetype");
+}
+
+body {
+    font-family: 'SourceCodePro','kaiti';
+    font-size: 15px;
+}
