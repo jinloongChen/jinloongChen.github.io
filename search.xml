@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>原码、反码、补码</title>
+      <link href="/posts/fb35e44.html"/>
+      <url>/posts/fb35e44.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="原码、反码、补码"><a href="#原码、反码、补码" class="headerlink" title="原码、反码、补码"></a>原码、反码、补码</h1><p>全篇以一字节（8位）为例</p><h2 id="机器数和真值"><a href="#机器数和真值" class="headerlink" title="机器数和真值"></a>机器数和真值</h2><p><strong>机器数</strong>：一个数在计算机中的二进制表示形式, 叫做这个数的机器数。机器数是带符号的，最高位存放符号, 正数为0, 负数为1。如数<code>5</code>、<code>-5</code>（十进制）分别转换成8位二进制为<code>0000 0101</code>、<code>10000101</code></p><p><strong>真值</strong>：将带符号位的机器数对应的<strong>真正数值</strong>称为机器数的真值。如有符号数<code>10000101</code>真正数值为<code>-5</code>,而不是133</p><h2 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h2><p><strong>定义</strong>：最高位为符号位，1 表示负数，0 表示正数。其余比特位表示值。</p><ul><li><p>+5[原码]: 0000 0101</p></li><li><p>-5[原码]:  1000 0101</p></li></ul><h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><h4 id="负数计算出错"><a href="#负数计算出错" class="headerlink" title="负数计算出错"></a>负数计算出错</h4><p>使用原码计算<code>5-3</code>：</p><p>假设我们要计算 (5 - 3) 的原码表示。</p><ol><li><p><strong>表示数字</strong>：</p><ul><li>(5) 的原码是 <code>0000 0101</code>（正数）。</li><li>(3) 的原码是 <code>0000 0011</code>（正数）。</li></ul></li><li><p><strong>取负数</strong>：</p></li></ol><ul><li>( -3 ) 的原码是 <code>1000 0011</code>（负数）。</li></ul><ol start="4"><li><p><strong>计算</strong>：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   0000 0101</span><br><span class="line">+  1000 0011</span><br><span class="line">---------------</span><br><span class="line">   1000 1000</span><br></pre></td></tr></table></figure></li><li><p><strong>结果分析</strong>：</p><ul><li>结果 <code>1000 1000</code> 表示负数，得到的真值是 -8。结果不正确，原码在减法操作中的复杂性和易出错性。</li></ul></li></ol><h4 id="零不唯一"><a href="#零不唯一" class="headerlink" title="零不唯一"></a>零不唯一</h4><p>在原码表示中，零的表示确实是不唯一的。</p><ol><li><p><strong>正零</strong>：</p><ul><li>正零的原码表示为 <code>0000 0000</code>（最高位为0）。</li></ul></li><li><p><strong>负零</strong>：</p><ul><li>负零的原码表示为 <code>1000 0000</code>（最高位为1）。</li></ul></li></ol><h2 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h2><p>正数的反码与原码相同，而负数的反码是对原码中<strong>数值位</strong>每一位进行取反</p><ul><li>+5 [反码]：00000101（与原码相同）</li><li>-5 [反码]：<ul><li>原码：    10000101</li><li>反码：    11111010（数值部分每位取反）</li></ul></li></ul><h3 id="反码计算"><a href="#反码计算" class="headerlink" title="反码计算"></a>反码计算</h3><p>1.反码运算时，其符号位与数值一起参加运算。</p><p>2.反码的符号位相加后，如果有进位出现，则要把它送回到最低位去相加（循环进位）。</p><p>3.用反码运算，其运算结果亦为反码。在转换为真值时，若符号位为0，数位不变；若符号位为1，应将结果求反才是其真值。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  0000 0101  (5)</span><br><span class="line">+ 1111 1100  (-3的反码)</span><br><span class="line">---------------</span><br><span class="line"> 10000 0001---&gt;0000 0001----进位加到最低位--&gt;0000 0010</span><br></pre></td></tr></table></figure><p>0000 0010的真值为2，结果正确</p><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><h4 id="零不唯一-1"><a href="#零不唯一-1" class="headerlink" title="零不唯一"></a>零不唯一</h4><p>反码有正零（0000000000000000 ）和负零（1111111111111111）两个表示</p><h4 id="加法复杂性"><a href="#加法复杂性" class="headerlink" title="加法复杂性"></a>加法复杂性</h4><p>在反码加法中，必须处理进位和符号位，增加了运算的复杂性。</p><h2 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h2><p>正数的补码和它的原码相同，负数的补码 &#x3D; 数值位逐位求反(反码) + 1   （+1是在最后的位置加一，即使是小数的最后位置）</p><p>补码的第一位不仅代表符号位，还代表了权值</p><ul><li><p>+5[补码]&#x3D; 0000 0101</p></li><li><p>-5[补码]:</p><ul><li>原码：    10000101</li><li>反码：    11111010（数值部分每位取反）</li><li>补码：    1111 1011  （反码+1）</li></ul></li></ul><h3 id="例：小数的补码"><a href="#例：小数的补码" class="headerlink" title="例：小数的补码"></a>例：小数的补码</h3><ol><li><p><strong>正数 5.625 的二进制表示</strong>：</p><ul><li>整数部分 5 &#x3D; 101</li></ul></li></ol><ul><li>小数部分 0.625 &#x3D; 0.101（通过反复乘以 2 得到）</li></ul><p>所以，5.625 的原码为：<code>101.101</code></p><ol start="2"><li><p><strong>表示为补码</strong>：</p><ul><li>首先，正数 5.625 的原码为 <code>00000101.101</code>（假设使用 8 位整数部分和 3 位小数部分）。</li><li>反码（对符号位不变，数值部分取反）：<ul><li>整数部分取反：<code>11111010.010</code></li></ul></li><li>补码（反码 + 1）：<ul><li><code>11111010.010</code> + <code>0.001</code> &#x3D; <code>11111010.011</code></li></ul></li></ul><p><strong>-5.625 的补码为 <code>11111010.011</code></strong></p></li></ol><h3 id="零唯一"><a href="#零唯一" class="headerlink" title="零唯一"></a>零唯一</h3><p>零的表示是唯一的，即 0000 0000，正零和负零都用相同的表示，这样避免了反码中存在的两个零表示的问题</p><h3 id="补码计算"><a href="#补码计算" class="headerlink" title="补码计算"></a>补码计算</h3><p>计算 (5 - 3) 的补码方法如下：</p><ol><li><p><strong>表示 (5)</strong>：</p><ul><li>原码：(0000 0101)</li><li>补码：(0000 0101)</li></ul></li><li><p><strong>表示 (-3)</strong>：</p><ul><li><p>原码：(1000 0011)</p></li><li><p>反码：(1111 1100)</p></li><li><p>补码：(1111 1101)（反码加 (1)）</p></li></ul></li><li><p><strong>相加</strong>：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  0000 0101  (5)</span><br><span class="line">+ 1111 1101  (-3的反码)</span><br><span class="line">1 0000 0010 ----舍去进位----&gt;0000 0010 </span><br></pre></td></tr></table></figure></li></ol><p>结果是 (0000 0010)，即 2，表示 5 - 3 &#x3D; 2，结果正确。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 反码计算 </tag>
+            
+            <tag> 补码计算 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>浮点数的精度</title>
       <link href="/posts/0.html"/>
       <url>/posts/0.html</url>

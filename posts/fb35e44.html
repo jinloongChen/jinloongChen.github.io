@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>原码、反码、补码 | 龙龙的小站</title><meta name="author" content="LonngLOONG"><meta name="copyright" content="LonngLOONG"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="原码适合直观理解，但在计算中不够高效。反码比原码稍好，但仍然有两个零的问题。补码在计算机中最为常用，因为它有效解决了负数表示和运算的复杂性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原码、反码、补码">
+<meta property="og:url" content="https://jinloongchen.github.io/posts/fb35e44.html">
+<meta property="og:site_name" content="龙龙的小站">
+<meta property="og:description" content="原码适合直观理解，但在计算中不够高效。反码比原码稍好，但仍然有两个零的问题。补码在计算机中最为常用，因为它有效解决了负数表示和运算的复杂性。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jinloongchen.github.io/img/1315433.jpg">
+<meta property="article:published_time" content="2024-09-25T11:53:56.285Z">
+<meta property="article:modified_time" content="2024-09-25T11:56:19.321Z">
+<meta property="article:author" content="LonngLOONG">
+<meta property="article:tag" content="反码计算">
+<meta property="article:tag" content="补码计算">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jinloongchen.github.io/img/1315433.jpg"><link rel="shortcut icon" href="/img/fav.jpg"><link rel="canonical" href="https://jinloongchen.github.io/posts/fb35e44.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":20,"languages":{"author":"作者: LonngLOONG","link":"链接: ","source":"来源: 龙龙的小站","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '原码、反码、补码',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-25 19:56:19'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/1315433.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/a.png')"><nav id="nav"><span id="blog-info"><a href="/" title="龙龙的小站"><span class="site-name">龙龙的小站</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">原码、反码、补码</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-25T11:53:56.285Z" title="发表于 2024-09-25 19:53:56">2024-09-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-25T11:56:19.321Z" title="更新于 2024-09-25 19:56:19">2024-09-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">950</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="原码、反码、补码"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="原码、反码、补码"><a href="#原码、反码、补码" class="headerlink" title="原码、反码、补码"></a>原码、反码、补码</h1><p>全篇以一字节（8位）为例</p>
+<h2 id="机器数和真值"><a href="#机器数和真值" class="headerlink" title="机器数和真值"></a>机器数和真值</h2><p><strong>机器数</strong>：一个数在计算机中的二进制表示形式, 叫做这个数的机器数。机器数是带符号的，最高位存放符号, 正数为0, 负数为1。如数<code>5</code>、<code>-5</code>（十进制）分别转换成8位二进制为<code>0000 0101</code>、<code>10000101</code></p>
+<p><strong>真值</strong>：将带符号位的机器数对应的<strong>真正数值</strong>称为机器数的真值。如有符号数<code>10000101</code>真正数值为<code>-5</code>,而不是133</p>
+<h2 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h2><p><strong>定义</strong>：最高位为符号位，1 表示负数，0 表示正数。其余比特位表示值。</p>
+<ul>
+<li><p>+5[原码]: 0000 0101</p>
+</li>
+<li><p>-5[原码]:  1000 0101</p>
+</li>
+</ul>
+<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><h4 id="负数计算出错"><a href="#负数计算出错" class="headerlink" title="负数计算出错"></a>负数计算出错</h4><p>使用原码计算<code>5-3</code>：</p>
+<p>假设我们要计算 (5 - 3) 的原码表示。</p>
+<ol>
+<li><p><strong>表示数字</strong>：</p>
+<ul>
+<li>(5) 的原码是 <code>0000 0101</code>（正数）。</li>
+<li>(3) 的原码是 <code>0000 0011</code>（正数）。</li>
+</ul>
+</li>
+<li><p><strong>取负数</strong>：</p>
+</li>
+</ol>
+<ul>
+<li>( -3 ) 的原码是 <code>1000 0011</code>（负数）。</li>
+</ul>
+<ol start="4">
+<li><p><strong>计算</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   0000 0101</span><br><span class="line">+  1000 0011</span><br><span class="line">---------------</span><br><span class="line">   1000 1000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>结果分析</strong>：</p>
+<ul>
+<li>结果 <code>1000 1000</code> 表示负数，得到的真值是 -8。结果不正确，原码在减法操作中的复杂性和易出错性。</li>
+</ul>
+</li>
+</ol>
+<h4 id="零不唯一"><a href="#零不唯一" class="headerlink" title="零不唯一"></a>零不唯一</h4><p>在原码表示中，零的表示确实是不唯一的。</p>
+<ol>
+<li><p><strong>正零</strong>：</p>
+<ul>
+<li>正零的原码表示为 <code>0000 0000</code>（最高位为0）。</li>
+</ul>
+</li>
+<li><p><strong>负零</strong>：</p>
+<ul>
+<li>负零的原码表示为 <code>1000 0000</code>（最高位为1）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h2><p>正数的反码与原码相同，而负数的反码是对原码中<strong>数值位</strong>每一位进行取反</p>
+<ul>
+<li>+5 [反码]：00000101（与原码相同）</li>
+<li>-5 [反码]：<ul>
+<li>原码：    10000101</li>
+<li>反码：    11111010（数值部分每位取反）</li>
+</ul>
+</li>
+</ul>
+<h3 id="反码计算"><a href="#反码计算" class="headerlink" title="反码计算"></a>反码计算</h3><p>1.反码运算时，其符号位与数值一起参加运算。</p>
+<p>2.反码的符号位相加后，如果有进位出现，则要把它送回到最低位去相加（循环进位）。</p>
+<p>3.用反码运算，其运算结果亦为反码。在转换为真值时，若符号位为0，数位不变；若符号位为1，应将结果求反才是其真值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  0000 0101  (5)</span><br><span class="line">+ 1111 1100  (-3的反码)</span><br><span class="line">---------------</span><br><span class="line"> 10000 0001---&gt;0000 0001----进位加到最低位--&gt;0000 0010</span><br></pre></td></tr></table></figure>
+
+<p>0000 0010的真值为2，结果正确</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><h4 id="零不唯一-1"><a href="#零不唯一-1" class="headerlink" title="零不唯一"></a>零不唯一</h4><p>反码有正零（0000000000000000 ）和负零（1111111111111111）两个表示</p>
+<h4 id="加法复杂性"><a href="#加法复杂性" class="headerlink" title="加法复杂性"></a>加法复杂性</h4><p>在反码加法中，必须处理进位和符号位，增加了运算的复杂性。</p>
+<h2 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h2><p>正数的补码和它的原码相同，负数的补码 &#x3D; 数值位逐位求反(反码) + 1   （+1是在最后的位置加一，即使是小数的最后位置）</p>
+<p>补码的第一位不仅代表符号位，还代表了权值</p>
+<ul>
+<li><p>+5[补码]&#x3D; 0000 0101</p>
+</li>
+<li><p>-5[补码]:</p>
+<ul>
+<li>原码：    10000101</li>
+<li>反码：    11111010（数值部分每位取反）</li>
+<li>补码：    1111 1011  （反码+1）</li>
+</ul>
+</li>
+</ul>
+<h3 id="例：小数的补码"><a href="#例：小数的补码" class="headerlink" title="例：小数的补码"></a>例：小数的补码</h3><ol>
+<li><p><strong>正数 5.625 的二进制表示</strong>：</p>
+<ul>
+<li>整数部分 5 &#x3D; 101</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>小数部分 0.625 &#x3D; 0.101（通过反复乘以 2 得到）</li>
+</ul>
+<p>所以，5.625 的原码为：<code>101.101</code></p>
+<ol start="2">
+<li><p><strong>表示为补码</strong>：</p>
+<ul>
+<li>首先，正数 5.625 的原码为 <code>00000101.101</code>（假设使用 8 位整数部分和 3 位小数部分）。</li>
+<li>反码（对符号位不变，数值部分取反）：<ul>
+<li>整数部分取反：<code>11111010.010</code></li>
+</ul>
+</li>
+<li>补码（反码 + 1）：<ul>
+<li><code>11111010.010</code> + <code>0.001</code> &#x3D; <code>11111010.011</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>-5.625 的补码为 <code>11111010.011</code></strong></p>
+</li>
+</ol>
+<h3 id="零唯一"><a href="#零唯一" class="headerlink" title="零唯一"></a>零唯一</h3><p>零的表示是唯一的，即 0000 0000，正零和负零都用相同的表示，这样避免了反码中存在的两个零表示的问题</p>
+<h3 id="补码计算"><a href="#补码计算" class="headerlink" title="补码计算"></a>补码计算</h3><p>计算 (5 - 3) 的补码方法如下：</p>
+<ol>
+<li><p><strong>表示 (5)</strong>：</p>
+<ul>
+<li>原码：(0000 0101)</li>
+<li>补码：(0000 0101)</li>
+</ul>
+</li>
+<li><p><strong>表示 (-3)</strong>：</p>
+<ul>
+<li><p>原码：(1000 0011)</p>
+</li>
+<li><p>反码：(1111 1100)</p>
+</li>
+<li><p>补码：(1111 1101)（反码加 (1)）</p>
+</li>
+</ul>
+</li>
+<li><p><strong>相加</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  0000 0101  (5)</span><br><span class="line">+ 1111 1101  (-3的反码)</span><br><span class="line">1 0000 0010 ----舍去进位----&gt;0000 0010 </span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>结果是 (0000 0010)，即 2，表示 5 - 3 &#x3D; 2，结果正确。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://jinloongchen.github.io">LonngLOONG</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://jinloongchen.github.io/posts/fb35e44.html">https://jinloongchen.github.io/posts/fb35e44.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://jinloongchen.github.io" target="_blank">龙龙的小站</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8F%8D%E7%A0%81%E8%AE%A1%E7%AE%97/">反码计算</a><a class="post-meta__tags" href="/tags/%E8%A1%A5%E7%A0%81%E8%AE%A1%E7%AE%97/">补码计算</a></div><div class="post_share"><div class="social-share" data-image="/img/1315433.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/pay.png" target="_blank"><img class="post-qr-code-img" src="/img/pay.png" alt="感谢支持"/></a><div class="post-qr-code-desc">感谢支持</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/0.html" title="浮点数的精度"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">浮点数的精度</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/1315433.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LonngLOONG</div><div class="author-info__description">一万年太久</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">10</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/jinloongChen"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/jinloongChen" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_57570560?type=blog" target="_blank" title="CSDN"><i class="fa fa-book-open"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">不定时更新，后面会加大力度！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81"><span class="toc-text">原码、反码、补码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E6%95%B0%E5%92%8C%E7%9C%9F%E5%80%BC"><span class="toc-text">机器数和真值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81"><span class="toc-text">原码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98"><span class="toc-text">存在问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9F%E6%95%B0%E8%AE%A1%E7%AE%97%E5%87%BA%E9%94%99"><span class="toc-text">负数计算出错</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%B6%E4%B8%8D%E5%94%AF%E4%B8%80"><span class="toc-text">零不唯一</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E7%A0%81"><span class="toc-text">反码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E7%A0%81%E8%AE%A1%E7%AE%97"><span class="toc-text">反码计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%B6%E4%B8%8D%E5%94%AF%E4%B8%80-1"><span class="toc-text">零不唯一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E6%B3%95%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="toc-text">加法复杂性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81"><span class="toc-text">补码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9A%E5%B0%8F%E6%95%B0%E7%9A%84%E8%A1%A5%E7%A0%81"><span class="toc-text">例：小数的补码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B6%E5%94%AF%E4%B8%80"><span class="toc-text">零唯一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E8%AE%A1%E7%AE%97"><span class="toc-text">补码计算</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/fb35e44.html" title="原码、反码、补码">原码、反码、补码</a><time datetime="2024-09-25T11:53:56.285Z" title="发表于 2024-09-25 19:53:56">2024-09-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/0.html" title="浮点数的精度">浮点数的精度</a><time datetime="2024-09-21T13:04:50.799Z" title="发表于 2024-09-21 21:04:50">2024-09-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/48598499.html" title="工厂方法模式">工厂方法模式</a><time datetime="2024-09-18T15:01:26.000Z" title="发表于 2024-09-18 23:01:26">2024-09-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/51bf9e07.html" title="单例模式">单例模式</a><time datetime="2024-09-13T08:45:27.000Z" title="发表于 2024-09-13 16:45:27">2024-09-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3ce50156.html" title="Selectsort">Selectsort</a><time datetime="2024-09-11T08:42:49.000Z" title="发表于 2024-09-11 16:42:49">2024-09-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By LonngLOONG</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'Ov23ligGf7Z4WscefevJ',
+      clientSecret: 'c8404e03e6372a03f4a6e854c0cf59f79cfb332e',
+      repo: 'jinloongChen.github.io',
+      owner: 'jinloongchen',
+      admin: ['jinloongchen'],
+      id: '8ae8f75c55c90e0b50df546ae2c51419',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
