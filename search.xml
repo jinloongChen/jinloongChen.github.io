@@ -5,10 +5,10 @@
     
     <entry>
       <title></title>
-      <link href="//post/test.html"/>
-      <url>//post/test.html</url>
+      <link href="//post/%E6%B5%8B%E8%AF%95.html"/>
+      <url>//post/%E6%B5%8B%E8%AF%95.html</url>
       
-        <content type="html"><![CDATA[<img src="/post/test/%E5%9B%BE%E7%89%871.png" class="" title="图片1"><img src="/post/test/%E5%9B%BE%E7%89%872.png" class="" title="图片2">]]></content>
+        <content type="html"><![CDATA[<p>测试</p><img src="/post/%E6%B5%8B%E8%AF%95/%E5%9B%BE%E7%89%872.png" class="" title="图片2"><img src="/post/%E6%B5%8B%E8%AF%95/%E5%9B%BE%E7%89%873.png" class="" title="图片3"><img src="/post/%E6%B5%8B%E8%AF%95/%E5%9B%BE%E7%89%871.png" class="" title="图片1">]]></content>
       
       
       
